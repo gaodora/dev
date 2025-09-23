@@ -102,9 +102,13 @@ support.encryptor6("hello")
 support.encryptor6("jaffa jaffa jaffa")
 #testing response to string with quotation
 support.encryptor6("cat.")
-#testing with another word
-support.encryptor6("javla")
-#testing with another word
-support.encryptor6("javlasana")
-#testing with only one letter string
-support.encryptor6("aaaaaaaa")
+#testing response to capitalization
+support.encryptor6("CAT")
+
+#recreation of encryptor6
+fun my-encryptor6(s :: String) -> String:
+  doc: "turns capital letters into lower case"
+  string-to-lower(s)
+end
+#test my fun 6
+support.test-encryptor6(my-encryptor6)
