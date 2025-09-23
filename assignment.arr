@@ -79,15 +79,32 @@ support.encryptor5("jaffa jaffa jaffa")
 #testing response to string with quotation
 support.encryptor5("cat.")
 #testing with another word
-support.encryptor5("tommy")
+support.encryptor5("javla")
+#testing with another word
+support.encryptor5("javlasana")
 #testing with only one letter string
 support.encryptor5("aaaaaaaa")
 
+#|
 fun my-encryptor5(s :: String) -> String:
-  doc: "returns strings cut off at 4 letters and duplicated 5 times"
-  stp1 = string-substring(s, 0, 4)
-  string-repeat(stp1, 5)
+  doc: "no idea"
+  
 end
 #test my fun 5
 support.test-encryptor5(my-encryptor5)
+|#
 
+
+"6..." 
+#basic word to test
+support.encryptor6("hello")
+#tests how the encryptor responds to to a word being spelled on repeat with a space between words
+support.encryptor6("jaffa jaffa jaffa")
+#testing response to string with quotation
+support.encryptor6("cat.")
+#testing with another word
+support.encryptor6("javla")
+#testing with another word
+support.encryptor6("javlasana")
+#testing with only one letter string
+support.encryptor6("aaaaaaaa")
