@@ -71,28 +71,39 @@ end
 support.test-encryptor4(my-encryptor4)
 
 
-"5..." 
+"5..." #TAKE ANOTHER LOOK AT IT 
 #basic word to test
 support.encryptor5("hello")
 #tests how the encryptor responds to to a word being spelled on repeat with a space between words
 support.encryptor5("jaffa jaffa jaffa")
 #testing response to string with quotation
 support.encryptor5("cat.")
+#testing response to capitalization
+support.encryptor6("CAE")
 #testing with another word
-support.encryptor5("javla")
-#testing with another word
-support.encryptor5("javlasana")
-#testing with only one letter string
-support.encryptor5("aaaaaaaa")
+support.encryptor5("seal")
+#testing with the vowels
+support.encryptor5("Aa Ee Ii Oo Uu")
 
-#|
+
 fun my-encryptor5(s :: String) -> String:
-  doc: "no idea"
-  
+  doc: "Replace vowels (aAeEiIoOuU) with next letter"
+  block: 
+    string-replace(s, "A", "B")
+    string-replace(s, "a", "b")
+    string-replace(s, "E", "F")
+    string-replace(s, "e", "f")
+    string-replace(s, "I", "J")
+    string-replace(s, "i", "j")
+    string-replace(s, "O", "P")
+    string-replace(s, "o", "p")
+    string-replace(s, "U", "V")
+    string-replace(s, "u", "v")
+  end
 end
 #test my fun 5
-support.test-encryptor5(my-encryptor5)
-|#
+support.test-encryptor5(my-encryptor5) 
+
 
 
 "6..." 
@@ -107,8 +118,9 @@ support.encryptor6("CAT")
 
 #recreation of encryptor6
 fun my-encryptor6(s :: String) -> String:
-  doc: "turns capital letters into lower case"
-  string-to-lower(s)
+  doc: "turns capital letters into lower case and remove r"
+  stp2 = string-to-lower(s)
+  string-replace(stp2, "r", "")
 end
 #test my fun 6
 support.test-encryptor6(my-encryptor6)
