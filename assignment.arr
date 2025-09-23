@@ -118,9 +118,44 @@ support.encryptor6("CAT")
 
 #recreation of encryptor6
 fun my-encryptor6(s :: String) -> String:
-  doc: "turns capital letters into lower case and remove r"
+  doc: "convert capital letters into lower case and remove r"
   stp2 = string-to-lower(s)
   string-replace(stp2, "r", "")
 end
 #test my fun 6
 support.test-encryptor6(my-encryptor6)
+
+"7..." #TAKE ANOTHER LOOK AT IT 
+#basic word to test
+support.encryptor7("hello")
+#tests how the encryptor responds to to a word being spelled on repeat with a space between words
+support.encryptor7("hello hello hello")
+#testing response to string with quotation
+support.encryptor7("cat.")
+#testing response to string w/o quotation
+support.encryptor7("cat")
+
+#recreation of encryptor7
+#|
+   fun my-encryptor7(s :: String) -> String:
+  doc: "convert string to code point"
+  stp3 = string-substring(s, 0, 1)
+  string-to-code-point(stp3)
+end
+#test my fun 7
+support.test-encryptor7(my-encryptor7)
+|# 
+
+"8..."
+#basic word to test
+support.encryptor8("hello")
+#tests how the encryptor responds to to a word being spelled on repeat with a space between words
+support.encryptor8("hello hello hello")
+#testing response to string with quotation
+support.encryptor8("cat.")
+
+#recreation of encryptor9
+fun my-encryptor8(s :: String) -> String:
+  doc: "add '!!!' to string and return string with '!!!' 3 times"
+
+
