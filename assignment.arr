@@ -54,3 +54,40 @@ support.test-encryptor3(my-encryptor3)
 
 
 "4..." 
+#basic word to test
+support.encryptor4("hello")
+#tests how the encryptor responds to to a word being spelled on repeat with a space between words
+support.encryptor4("jaffa jaffa jaffa")
+#testing response to 4 letter strings, found that any less than 4 words will produce an error
+support.encryptor4("cat.")
+
+#recreation of encryptor4
+fun my-encryptor4(s :: String) -> String:
+  doc: "returns strings cut off at 4 letters and duplicated 5 times"
+  stp1 = string-substring(s, 0, 4)
+  string-repeat(stp1, 5)
+end
+#test my fun 4
+support.test-encryptor4(my-encryptor4)
+
+
+"5..." 
+#basic word to test
+support.encryptor5("hello")
+#tests how the encryptor responds to to a word being spelled on repeat with a space between words
+support.encryptor5("jaffa jaffa jaffa")
+#testing response to string with quotation
+support.encryptor5("cat.")
+#testing with another word
+support.encryptor5("tommy")
+#testing with only one letter string
+support.encryptor5("aaaaaaaa")
+
+fun my-encryptor5(s :: String) -> String:
+  doc: "returns strings cut off at 4 letters and duplicated 5 times"
+  stp1 = string-substring(s, 0, 4)
+  string-repeat(stp1, 5)
+end
+#test my fun 5
+support.test-encryptor5(my-encryptor5)
+
