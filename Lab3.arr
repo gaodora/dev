@@ -41,7 +41,6 @@ end #end of fun tick
 #3 
 fun rock-paper-scissors(player1 :: String, player2 :: String) -> String:
   doc: "find the winner of a rock paper scissors game or find the game is tied"
-  
   ask:
     | (player1 == "rock") and (player2 == "rock") then: "tie"
     | (player1 == "paper") and (player2 == "paper") then: "tie"
@@ -58,9 +57,29 @@ fun rock-paper-scissors(player1 :: String, player2 :: String) -> String:
     | otherwise: "invalid choice"
   end
   
-  #player 2 wins 
 where: 
   rock-paper-scissors("rock", "rock") is "tie"
   rock-paper-scissors("rock", "scissors") is "player 1 wins"
   rock-paper-scissors("jack", "queen") is "invalid choice"
-end #end of fun tick  
+end #end of fun rock-paper-scissors  
+
+
+
+#4
+solar-system = table: Planets, Distance 
+  row: "Mercury", 0.39
+  row: "Venus", 0.72
+  row: "Earth", 1
+  row: "Mars", 1.52
+  row: "Jupiter", 5.2
+  row: "Saturn", 9.54
+  row: "Uranus", 19.2
+  row: "Neptune", 30.06
+end #end of table planets
+
+mars = solar-system.row-n(3) #extract Mars from table and put into variable mars
+mars["Distance"] #extract distance from variable mars
+
+
+
+#5
