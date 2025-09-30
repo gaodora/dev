@@ -104,3 +104,4 @@ choose-hat-or-visor(31, true)
 choose-hat-or-visor(31, false) 
 choose-hat-or-visor(10, true) 
 choose-hat-or-visor(5, false) 
+
