@@ -46,11 +46,21 @@ fun rock-paper-scissors(player1 :: String, player2 :: String) -> String:
     | (player1 == "rock") and (player2 == "rock") then: "tie"
     | (player1 == "paper") and (player2 == "paper") then: "tie"
     | (player1 == "scissors") and (player2 == "scissors") then: "tie"
-    | otherwise: ""
+      #end of tie
+    | (player1 == "rock") and (player2 == "scissors") then: "player 1 wins"
+    | (player1 == "paper") and (player2 == "rock") then: "player 1 wins"
+    | (player1 == "scissors") and (player2 == "paper") then: "player 1 wins"
+      #end of player1 wins
+    | (player2 == "rock") and (player1 == "scissors") then: "player 2 wins"
+    | (player2 == "paper") and (player1 == "rock") then: "player 2 wins"
+    | (player2 == "scissors") and (player1 == "paper") then: "player 2 wins"
+      #end of player2 wins
+    | otherwise: "invalid choice"
   end
   
   #player 2 wins 
 where: 
   rock-paper-scissors("rock", "rock") is "tie"
   rock-paper-scissors("rock", "scissors") is "player 1 wins"
+  rock-paper-scissors("jack", "queen") is "invalid choice"
 end #end of fun tick  
