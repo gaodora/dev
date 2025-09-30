@@ -1,20 +1,56 @@
-use context starter2024
+use context dcic2024
 
-#1 Design a function to determine if a given year is a leap year. The function should return true if the year is a leap year, otherwise false. Follow the design process, start with a contract, include types, then write the doc string and tests inside a where block.
+#1 
 fun leap-year(year :: Number) -> Boolean:
   doc: "determine if year is a leap year or not, return True if so, return False if not"
-  num-modulo(year, 4) == 0 
-  #num-modulo(year, 400) = 0 
-
+  #all leap years divisible by 4
+  if (num-modulo(year, 4) == 0) and (not(equal-now(num-modulo(year, 100), 0))): 
+    true
+  #leap years in the hundreds are divisible by both by 100 and 400 without leaving a remainder 
+  else if (num-modulo(year, 4) == 0) and (equal-now(num-modulo(year, 100), 0)):
+    if num-modulo(year, 400) == 0: 
+      true
+    else: 
+      false
+    end # end of if num-modulo(year, 400) == 0:
+  else:
+    false
+  end #end of if, else if, and else
 where: 
   leap-year(2016) is true
   leap-year(2017) is false
 end #end of fun leap-year
 
 
-fun is-even(n :: Number) -> Boolean:
-  num-modulo(n, 2) == 0
-where:
-  is-even(6) is true
-  is-even(3) is false
-end
+
+#2
+fun tick(sec :: Number) -> Number:
+  doc: "Operate like a normal clock with the input returning the second that comes after it, the seconds range goes from 0 to 59. Minute isn't being used so everytime it reaches a minute the count returns back to 0"
+  if sec <= 58:
+    sec + 1
+  else: 
+    sec - 59 #resets back to 0 in the case sec is 59
+  end #end of if/else
+where: 
+  tick(27) is 28
+  tick(59) is 0
+end #end of fun tick  
+
+
+    
+#3 
+fun rock-paper-scissors(player1 :: String, player2 :: String) -> String:
+  doc: "find the winner of a rock paper scissors game or find the game is tied"
+  
+  ask:
+    | (player1 == "rock") and (player2 == "rock") then: "tie"
+    | (player1 == "paper") and (player2 == "paper") then: "tie"
+    | (player1 == "scissors") and (player2 == "scissors") then: "tie"
+    | otherwise: ""
+  end
+  
+  #player 2 wins 
+where: 
+  rock-paper-scissors("rock", "rock") is "tie"
+  rock-paper-scissors("rock", "scissors") is "player 1 wins"
+end #end of fun tick  
