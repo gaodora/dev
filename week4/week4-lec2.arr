@@ -71,20 +71,9 @@ items-pulled-closer = transform-column(transform-column(items, "x-coordinate", p
 items-pulled-closer
 
 
-
-#task 2: 
-items-with-dist = build-colum(items, "distance", calc-distance)
-
-#sort by distance
-items-sorted = order-by(items, "distance", true)
+#task 2 (did this earlier but idk we just did it again for idk what reason ) 
+items-with-dists = build-column(items, "distance", calc-distance)
+#display results 
+items-with-dists
 
 
-#obfuscate table 
-fun obfuscate(i :: String) -> String:
-  doc: "turn string into X's accounting for all letters and spaces"
-  string-replace(i, "x", i) 
-where: 
-  obfuscate(items.row-n(0)["item"]) is "XXXXXXXXXXXXX"
-end
-
-#items-obfuscated = obfuscate()
