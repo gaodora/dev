@@ -46,9 +46,9 @@ where:
     num-sqrt(num-sqr(-9) + num-sqr(64))
 end
 
-items-with-dist = build-column(items, "distance", calc-distance)
+items-with-dists = build-column(items, "distance", calc-distance)
 
-items-with-dist
+items-with-dists
 
 
 ###############
@@ -71,9 +71,20 @@ items-pulled-closer = transform-column(transform-column(items, "x-coordinate", p
 items-pulled-closer
 
 
-#task 2 (did this earlier but idk we just did it again for idk what reason ) 
-items-with-dists = build-column(items, "distance", calc-distance)
-#display results 
-items-with-dists
+#calculate dist function
+fun calc-distance-squared(r :: Row) -> Number:
+  doc: "calc squared dist from origin (avoids RoughNum)"
+  num-sqr(r["x-coordinate"]) + num-sqr(r["y-coordinate"])
+where: 
+  calc-distance-squared(items.row-n(0)) is (num-sqr(23) + num-sqr(-87))
+  calc-distance-squared(items.row-n(9)) is (num-sqr(-29) + num-sqr(-21))
+end
 
+#find the closest item to the player
+items-with-dist = build-column(items, "distance-squared", calc-distance-squared)
+items-sorted = order-by(items-with-dist, "distance-squared", true)
+closest-item-name = items-sorted.row-n(0)["item"]
 
+#display results
+items-with-dist
+closest-item-name
