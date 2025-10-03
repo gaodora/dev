@@ -88,3 +88,13 @@ closest-item-name = items-sorted.row-n(0)["item"]
 #display results
 items-with-dist
 closest-item-name
+
+
+
+#obfuscate table 
+fun obfuscate(i :: String) -> String:
+  doc: "turn string into X's accounting for all letters and spaces"
+  string-replace(i, "X", i) 
+where: 
+  obfuscate(items.row-n(0)["item"]) is "XXXXXXXXXXXXX"
+end
