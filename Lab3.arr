@@ -1,4 +1,7 @@
 use context dcic2024
+include csv #for 5
+include data-source #for 5
+
 
 #1 
 fun leap-year(year :: Number) -> Boolean:
@@ -83,3 +86,25 @@ mars["Distance"] #extract distance from variable mars
 
 
 #5
+
+# Load the file and assign it to variable something
+something = load-table:
+  year :: Number,
+  day :: Number, 
+  month :: String,
+  rate :: Number
+  source: csv-table-file("boe_rates.csv", default-options)
+  sanitize year using num-sanitizer
+  sanitize day using num-sanitizer
+    sanitize rate using num-sanitizer
+end
+
+something
+something.length() #num rows
+median(something, "rate")
+modes(something, "rate")
+
+#ordering ascending and desending 
+order-by(something, "rate", false)
+order-by(something, "rate", true)
+
