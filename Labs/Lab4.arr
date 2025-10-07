@@ -68,5 +68,9 @@ long-flights = filter-with(flights, lam(row :: Row): is-long-flight(row) end)
 long-flights
 
 #Order the resulting table by "air_time" descending (largest first).
-#Hint: order-by takes the column name and a Boolean for ascending/descending.
-air-time = order-by()
+long-flights.order-by("air-time") 
+#idk if it will print so, print just in case
+long-flights
+
+#Extract the carrier, origin, and dest of the first row (the flight with the largest air_time) aka the first row of long flights which should be sorted by the flights with the longest time
+
