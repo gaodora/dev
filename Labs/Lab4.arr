@@ -72,5 +72,9 @@ long-flights.order-by("air-time")
 #idk if it will print so, print just in case
 long-flights
 
-#Extract the carrier, origin, and dest of the first row (the flight with the largest air_time) aka the first row of long flights which should be sorted by the flights with the longest time
-
+#Extract the carrier, origin, and dest of the first row
+fun extra(row :: Row):
+  doc: "extracts the carrier, origin, and dest of the first row of long-flights which is the longest time and has a distance >= to 1500"
+  row["carrier"]
+  row
+end
