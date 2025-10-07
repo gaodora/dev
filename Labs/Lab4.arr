@@ -37,7 +37,7 @@ source: csv-table-file("flights.csv", default-options)
   sanitize minute using num-sanitizer
     |#
 end
-
+#print flights
 flights
   
 
@@ -50,4 +50,23 @@ flights
 #ex: filter-with(flights, lam(r :: Row): r["distance"] >= 1500 end)
 #ex: filter-with(flights, is-long-flight)
 
+
 #1
+#checks if row-dist >= 1500
+fun is-long-flight(row :: Row) -> Boolean: 
+  doc: "boolean that checks to see if the row's distance is greater or equal to 1500"
+  row["distance"] >= 1500
+
+where: 
+  is-long-flight(flights.row-n(1)) is false
+  is-long-flight(flights.row-n(14)) is true
+end #end of is-long-flight
+
+#Use filter-with to keep only the long flights. 
+long-flights = filter-with(flights, lam(row :: Row): is-long-flight(row) end)
+#print long-flights
+long-flights
+
+#Order the resulting table by "air_time" descending (largest first).
+#Hint: order-by takes the column name and a Boolean for ascending/descending.
+air-time = order-by()
