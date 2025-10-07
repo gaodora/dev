@@ -50,7 +50,6 @@ fun is-long-flight(r :: Row) -> Boolean:
 
 where: 
   is-long-flight(flights.row-n(1)) is false
-  is-long-flight(flights.row-n(14)) is true
 end #end of is-long-flight
 
 #Use filter-with to keep only the long flights. 
@@ -61,8 +60,7 @@ long-flights
 #Order the resulting table by "air_time" descending (largest first).
 #false = descending, true = ascending
 sorted-long-flights = long-flights.order-by("air-time", false)
-
-#idk if it will print so, print just in case
+#print long flights 
 long-flights
 
 #Extract the carrier, origin, and dest of the first row
