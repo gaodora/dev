@@ -30,18 +30,19 @@ where:
 end
 
 undecided-voters = transform-column(voter-data, "Party", blank-to-undecided)
+undecided-voters
 
 #creates frequency chart of table
 freq-bar-chart(undecided-voters, "Party")
 
-
-
 #class exercises 
-fun normize-date(r :: row): 
-  doc: "normallizes date to from DD/MM/YYYY to YYYY-MM-DD"
-  #get the date based on row and column 'date'
-  #extract the numbers and use '-' and "/" to differentiate or use the placement of it ie 2 and 5
-  # have string day, month, year
-  #order it to print year - month - day
-  
-end #end of function normize-date
+fun normalize-date(st :: String) -> String:
+  doc: "orders DOB from D-M-Y to Y-M-D"
+  day = string-substring(st,0,2)
+  month = string-substring(st,3,5)
+  year = string-substring(st,6,9)
+  sv = (year + "-" + month + "-" + day)
+where: 
+    normalize-date("23/09/1985") is "1985-09-23"
+end
+
