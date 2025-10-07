@@ -73,7 +73,10 @@ long-flights.order-by("air-time")
 long-flights
 
 #Extract the carrier, origin, and dest of the first row
-fun extra(row :: Row):
+fun extra(r :: Row):
   doc: "extracts the carrier, origin, and dest of the first row of long-flights which is the longest time and has a distance >= to 1500"
-  
+  firs = flights.row-n(r)
+  carry = firs["carrier"]
+  ori = firs["origin"]
+  desti = firs["dest"]
 end
