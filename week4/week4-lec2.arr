@@ -94,7 +94,13 @@ closest-item-name
 #obfuscate table 
 fun obfuscate(i :: String) -> String:
   doc: "turn string into X's accounting for all letters and spaces"
-  string-replace(i, "X", i) 
+  string-repeat("X", string-length(i)) 
 where: 
   obfuscate(items.row-n(0)["item"]) is "XXXXXXXXXXXXX"
 end
+
+obfuscated = transform-column(items, "item", obfuscate)
+#display
+obfuscated
+
+
