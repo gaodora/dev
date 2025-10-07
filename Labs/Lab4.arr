@@ -75,6 +75,5 @@ long-flights
 #Extract the carrier, origin, and dest of the first row
 fun extra(row :: Row):
   doc: "extracts the carrier, origin, and dest of the first row of long-flights which is the longest time and has a distance >= to 1500"
-  row["carrier"]
-  row
+  carry = extract "carrier" from long-flights end
 end
