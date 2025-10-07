@@ -53,14 +53,7 @@ where:
 end #end of is-long-flight
 
 #Use filter-with to keep only the long flights. 
-long-flights = filter-with(flights, lam(r :: Row): is-long-flight(r) end)
+filter-with(flights, lam(r :: Row): is-long-flight(r) end)
 #print long-flights
-long-flights
 
-#Order the resulting table by "air_time" descending (largest first).
-#false = descending, true = ascending
-sorted-long-flights = long-flights.order-by("air-time", false)
-#print long flights 
-long-flights
 
-#Extract the carrier, origin, and dest of the first row

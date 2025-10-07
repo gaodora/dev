@@ -22,20 +22,6 @@ flights = load-table:
   time-hour :: String
   
 source: csv-table-file("flights.csv", default-options)
-    #|
-  sanitize row-names using num-sanitizer
-  sanitize dep-time using num-sanitizer
-  sanitize sched-dep-time using num-sanitizer
-  sanitize dep-delay using num-sanitizer
-  sanitize arr-time using num-sanitizer
-  sanitize sched-arr-time using num-sanitizer
-  sanitize arr-delay using num-sanitizer
-  sanitize flight using num-sanitizer
-  sanitize air-time using num-sanitizer
-  sanitize distance using num-sanitizer
-  sanitize hour using num-sanitizer
-  sanitize minute using num-sanitizer
-    |#
 end
 #print flights
 flights
@@ -53,23 +39,21 @@ flights
 
 #1
 #checks if row-dist >= 1500
-fun is-long-flight(row :: Row) -> Boolean: 
+fun is-long-flight(r :: Row) -> Boolean: 
   doc: "boolean that checks to see if the row's distance is greater or equal to 1500"
-  row["distance"] >= 1500
+  d = r["distance"]
+  if is-number(d) and (d >= 1500): 
+    true
+  else: 
+    false
+  end
 
 where: 
   is-long-flight(flights.row-n(1)) is false
-  is-long-flight(flights.row-n(14)) is true
 end #end of is-long-flight
 
 #Use filter-with to keep only the long flights. 
-long-flights = filter-with(flights, lam(row :: Row): is-long-flight(row) end)
+filter-with(flights, lam(r :: Row): is-long-flight(r) end)
 #print long-flights
-long-flights
 
-#Order the resulting table by "air_time" descending (largest first).
-long-flights.order-by("air-time") 
-#idk if it will print so, print just in case
-long-flights
 
-#Extract the carrier, origin, and dest of the first row
