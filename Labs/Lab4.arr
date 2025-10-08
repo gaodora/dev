@@ -39,18 +39,14 @@ flights
 
 #1
 #checks if row-dist >= 1500
-fun is-long-flight(row :: Row) -> Boolean:
-  doc: "boolean that checks to see if the row's distance is greater or equal to 1500"
+fun is-long-flight(row):
   row["distance"] >= 1500
 end #end of is-long-flight
-
-  #| where: 
-  is-long-flight(flights.row-n(1)) is false
-  |# 
+ 
 
 #Use filter-with to keep only the long flights. 
-#filter-with(flights, lam(r :: Row): is-long-flight(r) end)
-filter-with(flights, is-long-flight)
+long-flight = filter-with(flights, is-long-flight)
+#filter-with(flights, is-long-flight)
 
 
 
