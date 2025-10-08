@@ -278,7 +278,7 @@ fun calc-on-time-score(r :: Row) -> Number:
   end
   
   e-num = string-to-number(r["air-time"])
-  e = cases (Option) c-num:
+  e = cases (Option) e-num:
     | some(d) => if d < 0: 0 else: d end
     | none => 0
   end
@@ -297,7 +297,25 @@ time-score-table = build-column(flights, "on_time_score", lam(r :: Row): calc-on
 "time-score in table"
 time-score-table
 
-#order by effective speed in descending order
-order-eff-spd = order-by(eff-spd, "effective-speed", false)
-order-eff-spd
+#order by time score in ascending order
+order-time-score = order-by(time-score-table, "on-time-score", true)
+"ordered-time-score"
+order-time-score
 
+
+#extract carrier, origin, and dest of fastest flight, row1
+row-ti = order-time-score.row-n(0)
+carrier-ti = row-ti["carrier"]
+flight-ti = row-ti["flight"]
+origin-ti = row-ti["origin"]
+destination-ti = row-ti["dest"]
+
+#print the three extracted which 
+"carrier"
+carrier-ti
+"flight" 
+flight-ti
+"origin"
+origin-ti
+"dest"
+destination-ti
