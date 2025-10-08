@@ -166,4 +166,138 @@ dep-delay
 
 #3 — Clean Delays + Compute Effective Speed
 #transform-column for dep-delay
-transform-column(flights, "dep-delay", )
+new-dep-delay = transform-column(flights,"dep-delay",
+  lam(n):
+    num-opt = string-to-number(n)
+    cases (Option) num-opt:
+      | some(num) => if num < 0: 0 else: num end
+      | none => 0
+    end
+  end
+)
+"new table that changes flight so that delay time with < 0 changed to 0"
+new-dep-delay
+
+#transform-column for arr-delay
+arr-delay = transform-column(new-dep-delay,"arr-delay",
+  lam(n):
+    num-opt = string-to-number(n)
+    cases (Option) num-opt:
+      | some(num) => if num < 0: 0 else: num end
+      | none => 0
+    end
+  end)
+
+
+#add new column
+#calculate effective speed for the add new column
+#function that calculates effective speed
+fun calc-eff-spd(r :: Row) -> Number:
+  dist-opt = string-to-number(r["distance"])
+  air-opt = string-to-number(r["air-time"])
+  cases (Option) dist-opt:
+    | some(dist) =>
+      cases (Option) air-opt:
+        | some(air) =>
+            if air > 0:
+              dist / (air / 60)
+            else:
+              0
+            end
+        | none => 0
+      end
+    | none => 0
+  end
+end
+#build-column for effective speed
+eff-spd = build-column(flights, "effective-speed", lam(r :: Row): calc-eff-spd(r) end)
+eff-spd 
+
+#order by effective speed in descending order
+order-eff-spd = order-by(eff-spd, "effective-speed", false)
+"order-eff-spd"
+order-eff-spd
+
+#extract carrier, origin, and dest of fastest flight, row1
+row-fast = order-eff-spd.row-n(0)
+carrier-fast = row-fast["carrier"]
+origin-fast = row-fast["origin"]
+destination-fast = row-fast["dest"]
+
+#print the three extracted which 
+"carrier"
+carrier-fast
+"origin"
+origin-fast
+"dest"
+destination-fast
+
+
+
+
+#4 — Discount Late Arrivals + On-Time Score
+#function that makes table t and reduces arr-delay by 20% only when 0 ≤ arr_delay ≤ 45
+fun apply-arrival-discount(t :: Table) -> Table:
+  doc: "Reduces arr_delay by 20% only when 0 <= arr-delay <= 45, else leaves value unchanged."
+  transform-column(t, "arr-delay",
+    lam(n):
+      num-opt = string-to-number(n)
+      cases (Option) num-opt:
+        | some(num) =>
+          if (num >= 0) and (num <= 45):
+              num * 0.8
+            else:
+              num
+            end
+        | none => n
+      end
+    end)
+end
+
+#discount on flight discounted table 
+flights-discounted = apply-arrival-discount(flights)
+
+"flights with arrival delay discounted (20% off for 0 ≤ arr_delay ≤ 45)"
+flights-discounted
+
+
+#function for creating time score
+fun calc-on-time-score(r :: Row) -> Number:
+  doc: "process dep-delay, arr-delay, and air time to calculate time score"
+  
+  a-num = string-to-number(r["dep-delay"])
+  a = cases (Option) a-num:
+    | some(d) => if d < 0: 0 else: d end
+    | none => 0
+  end
+ 
+  b-num = string-to-number(r["arr-delay"])
+  b = cases (Option) b-num:
+    | some(d) => if d < 0: 0 else: d end
+    | none => 0
+  end
+  
+  e-num = string-to-number(r["air-time"])
+  e = cases (Option) c-num:
+    | some(d) => if d < 0: 0 else: d end
+    | none => 0
+  end
+  
+  #calc score
+  score = 100 - (a - b) - (e / 30)
+  if score < 0:
+    0
+  else:
+    score
+  end
+end
+
+#creating column time score
+time-score-table = build-column(flights, "on_time_score", lam(r :: Row): calc-on-time-score(r) end)
+"time-score in table"
+time-score-table
+
+#order by effective speed in descending order
+order-eff-spd = order-by(eff-spd, "effective-speed", false)
+order-eff-spd
+
