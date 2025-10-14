@@ -2,7 +2,7 @@ use context dcic2024
 include csv
 include data-source
 
-flights-53 = load-table: 
+flights-sam = load-table: 
   row-names :: Number,
   dep-time :: Number, 
   sched-dep-time :: Number,
@@ -23,32 +23,16 @@ flights-53 = load-table:
   
   source: csv-table-file("flights_sample53.csv", default-options)
 end
-'print flights-53, aka the base table'
-flights-53
+#print flights
+flights-sam
 
-#TASK 1 - cleanup plan
+#cleanup plan
 #delay: change all negative numbers to 0 
 #tailnum: "" becomes unaccounted
-#carrier: " b6 ", erase excess spaces and capitalize
 #--------------------------------------------
-
-#TASK 2
-#1. tailnum "" to "UNKNOWN"
-fun blank-to-unknown(s :: String) -> String:
-  doc: "replaces an empty string with UNKNOWN"
-  if s == "":
-    "UNKNOWN"
-  else:
-    s
-  end
-end
-#for tailnum, "" = UNKNOWN
-flights-53-unknown = transform-column(flights-53, "tailnum", blank-to-unknown)
-
-#2. dep-delay, arr-delay change negative to 0
 #transform-column for dep-delay
 #new table that changes flight so that dep-delay time with < 0 changed to 0
-flights-57-dep-delay = transform-column(flights-53-unknown,"dep-delay",
+flights-sam1 = transform-column(flights-sam,"dep-delay",
   lam(n):
     num-opt = string-to-number(n)
     cases (Option) num-opt:
@@ -62,7 +46,7 @@ flights-57-dep-delay = transform-column(flights-53-unknown,"dep-delay",
 
 #transform-column for arr-delay
 #new table that changes flight so that arr-delay time with < 0 changed to 0
-flights-57-arr-delay = transform-column(flights-57-dep-delay,"arr-delay",
+flight-sam2 = transform-column(flights-sam1,"arr-delay",
  lam(n):
     num-opt = string-to-number(n)
     cases (Option) num-opt:
@@ -73,6 +57,18 @@ flights-57-arr-delay = transform-column(flights-57-dep-delay,"arr-delay",
     end
   end
 )
-flights-57-arr-delay
+flight-sam2
 
-#3. identify duplicate rows from the table
+#transform-column for tailnum
+#new table changes tailnum so that if there's "" it will be replaced with "unknown"
+fun blank-to-unknown(s :: String) -> String:
+  doc: "replaces an empty string with unknown"
+  if s == "":
+    "UNKNOWN"
+  else:
+    s
+  end
+end
+#for tailnum, "" = UNKNOWN
+flight-sam3 = transform-column(flight-sam2, "tailnum", blank-to-unknown)
+flight-sam3

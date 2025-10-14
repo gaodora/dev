@@ -62,4 +62,4 @@ world-bank = load-table:
   sanitize life-exp using num-sanitizer
   sanitize gdp using num-sanitizer
 end
-lr-plot(world-bank, "gdp", "life-exp")
+#lr-plot(world-bank, "gdp", "life-exp")
