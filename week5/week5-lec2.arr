@@ -91,3 +91,97 @@ where:
 end
 
 #---------------------------------
+#---------------------------------
+#CLASS EXERCISES
+
+"LIST OPERATIONS"
+"1"
+discount-codes-ce = [list: "NEWYEAR", "student", "NONE", "student", "VIP", "none"]
+discount-codes-ce
+
+#make everything upper-case
+upper-codes-ce = map(string-to-upper, discount-codes-ce)
+upper-codes-ce
+#another method of making upper 
+
+#takes out duplicates
+unique-codes-ce = distinct(discount-codes)
+unique-codes-ce
+
+#if you did upper-case conversion after distict() you would still have NONE and none still in the list of unique codes
+
+"2"
+survey-respon = [list: "yes", "NO", "maybe", "Yes", "no", "Maybe"]
+survey-respon
+
+#make elements of survey response lower-case
+lower-survey = map(string-to-lower, survey-respon)
+lower-survey
+
+#takes out duplicates 
+unique-survey = distinct(lower-survey)
+unique-survey
+
+#filter out maybe 
+definitive-respon = filter(lam(s): s <> "maybe" end, unique-survey)
+definitive-respon
+
+#---------------------------------
+"LOOPS"
+loops-list = ([list: 0, 1, 2, 3])
+"1"
+#define product calculating function 
+fun mult(num-list :: List<Number>) -> Number block:
+  doc: "multiplies all numbers in a list together"
+  var result = 1
+  for each(n from num-list):
+    result := result * n
+  end 
+  result
+end
+mult(loops-list)
+
+#define function sum-even-num and adds only even numbers 
+fun sum-even-num(num-list :: List<Number>):
+  doc: "adds only the even numbers of a list to get a sum"
+  var even-sum = 0
+  for each(n from num-list):
+    if (num-modulo(n, 2) == 0) block:
+      even-sum := even-sum + n
+    else:
+      even-sum := even-sum + 0
+    end
+  end
+  even-sum
+  endci
+sum-even-num(loops-list)
+
+"2"
+#define function my-length and returns the number of elements in list
+fun my-length(num-list :: List<Number>) -> Number block:
+  doc: "finds length of list by adding 1 to length everytime an element is counted"
+  var list-length = 0
+  for each(n from num-list):
+    list-length := length + 1
+  end
+  list-length
+end 
+
+"3"
+#fun my-doubles where elements twice the og are returned
+fun my-doubles(num-list :: List<Number>) -> Number block:
+  doc: "doubles the elements of a given list"
+  var new-num-list = ([list: ])
+  for each(n from num-list):
+    var element = n * 2
+    new-num-list := new-num-list.append(element)
+  end
+end 
+
+"4"
+#fun my-doubles where elements twice the og are returned with list map
+fun my-doubles-map(num-list :: List<Number>) -> Number block:
+  doc: "doubles the elements of a given list"
+  num-list.map(lam(n): n * 2 end)
+  num-list
+end 
