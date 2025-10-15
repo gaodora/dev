@@ -157,3 +157,12 @@ flights-normalized = transform-column(flights-dedup, "dep-time",
 
 'flights with normalized dep-time'
 flights-normalized
+
+flight-task2 = transform-column(flights-normalized, "carrier",
+  lam(c):
+    trimmed = trim(c)
+    string-toupper(trimmed)
+  end)
+
+'flights with normalized carrier'
+flight-task2

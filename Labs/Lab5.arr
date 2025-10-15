@@ -3,6 +3,8 @@ include csv
 include data-source
 include tables
 
+
+
 flights-53 = load-table: 
   row-names :: Number,
   dep-time :: Number, 
@@ -157,3 +159,28 @@ flights-normalized = transform-column(flights-dedup, "dep-time",
 
 'flights with normalized dep-time'
 flights-normalized
+
+flight-task2 = transform-column(flights-normalized, "carrier",
+  lam(c):
+    trimmed = trim(c)
+    string-toupper(trimmed)
+  end)
+
+'flights with normalized carrier'
+flight-task2
+
+
+#-----------------------------------
+#TASK4
+#1. make charts
+
+#counts all the carriers and the number of times they've appeared
+carrier-counts = count(flight-task2, "carrier")
+'carrier count table'
+carrier-counts
+#sorts the carrier in descending order
+carrier-sorted = carrier-counts.order-by("count", false)
+'carrier soted table'
+carrier-sorted 
+#create the bar chart 
+bar-chart(carrier-sorted, "value", "count")
