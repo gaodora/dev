@@ -33,8 +33,9 @@ flights-53
 #delay: change all negative numbers to 0 
 #tailnum: "" becomes unaccounted
 #carrier: " b6 ", erase excess spaces and capitalize
-#--------------------------------------------
 
+
+#--------------------------------------------
 #TASK 2
 #1. tailnum "" to "UNKNOWN"
 fun blank-to-unknown(s :: String) -> String:
@@ -174,6 +175,7 @@ flight-task2
 #TASK4
 #1. make charts
 
+#bar-chart of number of carriers
 #counts all the carriers and the number of times they've appeared
 carrier-counts = count(flight-task2, "carrier")
 'carrier count table'
@@ -183,4 +185,79 @@ carrier-sorted = carrier-counts.order-by("count", false)
 'carrier soted table'
 carrier-sorted 
 #create the bar chart 
+'bar chart of num of carriers'
 bar-chart(carrier-sorted, "value", "count")
+
+
+#histogram of flight distances
+#extract distance values
+distance-values = flight-task2.build-column("distance_num",
+  lam(r):
+    num-opt = string-to-number(r["distance"])
+    cases (Option) num-opt:
+      | some(num) => num
+      | none => 0
+    end
+  end)
+#create histogram
+'histogram of flight distances'
+histogram(distance-values, "distance_num", 10)
+
+
+#scatter plot of air-time vs. distance
+#new columns with num values
+flight-scatter = flight-task2.build-column("distance-num",
+  lam(r):
+    num-opt = string-to-number(r["distance"])
+    cases (Option) num-opt:
+      | some(num) => num
+      | none => 0
+    end
+  end).build-column("air-time-num",
+  lam(r):
+    num-opt = string-to-number(r["air-time"])
+    cases (Option) num-opt:
+      | some(num) => num
+      | none => 0
+    end
+  end)
+#create scatter plot 
+'scatter plot of air time vs distance'
+scatter-plot(flight-scatter, "distance-num", "air-time-num")
+
+
+#2. extract 'distance' column as list
+distance-list = flight-task2.column("distance")
+'distance list'
+distance-list
+
+
+#3. use for each loop
+#compute total distance flown
+var total-grand = 0
+var max-dist = 0
+var total-count = 0
+for each(dist from distance-list): 
+  #convert from string to num
+  num-opt = string-to-number(dist)
+  cases (Option) num-opt:
+  | some(num) =>
+    block:
+        total-grand := total-grand + num
+        total-count := total-count + 1
+      max-dist := if num > max-dist: num else: max-dist end
+    end
+  | none => nothing
+end
+end
+'total dist'
+total-grand
+
+#compute average distance
+average-dist = total-grand / total-count
+'average dist'
+average-dist
+
+#compute max distance
+'max dist'
+max-dist
