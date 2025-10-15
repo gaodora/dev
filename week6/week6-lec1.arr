@@ -86,3 +86,45 @@ end
 task1-prio = low
 task2-prio = high
 task3-prio = medium
+
+check: 
+  is-Priority(task1-prio) is true
+  is-low(task1-prio) is true
+  is-high(task1-prio) is false
+  is-high(task2-prio) is true
+end 
+
+
+data Task:
+  | task(description :: String, priority :: Priority)
+  | note(description :: String)
+end
+
+task-1 = task("study for exams", high)
+task-2 = task("watch a tv series", low)
+task-3 = task("Go for groceries", medium)
+
+fun describe(t :: Task) -> String:
+  cases(Task) t: 
+    | task(d, p) => "Task: " + d + ", " + tostring(p)
+    | note(d) => d
+  end
+end
+
+describe(task-1)
+
+
+fun describe-new(t :: Task) -> String: 
+  cases(Task) t: 
+    | task(d, p) =>
+      priority-text = cases(Priority) p:
+        | low => "low priority"
+        | medium => "medium priority"
+        | high => "high priority" 
+      end 
+      "Task: " + d + " - " + priority-text
+    | note(d) => d
+  end
+end
+
+describe-new(task-1)
