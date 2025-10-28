@@ -51,12 +51,12 @@ scores :: List<Number> =
 scores
 
 #recursive fun to count >90 
-fun counter(s :: Student) -> Number: 
+fun counter(l :: List<Number>) -> Number: 
   doc: 'count the number of scores in the list greater than 90'
-  cases (Student) s: 
+  cases (List) l: 
     | empty => 0 
     | link(f, r) =>
-      if f.score > 90:
+      if f > 90:
         1 + counter(r)
       else:
         counter(r)
@@ -70,9 +70,11 @@ counter(scores)
 #Task 2
 ######################################################################
 #2.1
-#fun to get all emails and put them in list all-emails
+#uses get-column to extract all emails and put them in list all-emails
+all-emails = student-score.get-column('Email')
+#print all-emails
+all-emails
 
-#| fun for-all-emails(s :: String): 
-  doc: 'extract all emails from table student-scores and add them to the list all-emails'
-all-emails :: List<String>  
-|#
+######################################################################
+#2.2
+#
