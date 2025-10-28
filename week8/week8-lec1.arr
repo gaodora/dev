@@ -15,14 +15,22 @@ wildcat = node("Species", "Felis silvestris", [list: ])
 felis = node("Genus", "Felis", [list: house-cat, wildcat])
 
 felidae = node("Family", "Felidae", [list: panthera, felis])
+#############################################
 
+#a node with no children is a leaf node
+#lion tiger leopard house-cat and wildcat are leaves bc they have no children
+
+#fun checks if a node is a leaf
 fun is-leaf(t :: TaxonomyTree) -> Boolean:
   is-empty(t.children)
 where:
   is-leaf(house-cat) is true
   is-leaf(felis) is false
 end
+#############################################
 
+#count number of nodes in a generic tree 
+#one fun process a single node, other process a list of trees (the children)
 fun count-nodes(t :: TaxonomyTree) -> Number:
    1 + count-nodes-children(t.children)
 where:
@@ -39,3 +47,7 @@ fun count-nodes-children(c :: List<TaxonomyTree>) -> Number:
       count-nodes(first) + count-nodes-children(rest)
   end
 end
+
+
+#CLASS EXERCISES
+fun count-species(t :: TaxonomyTree) -> 

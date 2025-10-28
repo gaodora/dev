@@ -77,4 +77,5 @@ all-emails
 
 ######################################################################
 #2.2
-#
+#create list of domain names from emails 
+fun get-domain(r :: Row) 
