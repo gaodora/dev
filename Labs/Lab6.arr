@@ -78,4 +78,38 @@ all-emails
 ######################################################################
 #2.2
 #create list of domain names from emails 
-fun get-domain(r :: Row) 
+fun get-domain(s :: String) -> String: 
+  doc: 'extract univerity name from emails and create a list'
+  domain = string-split(s, '@').get(1)
+  uni = string-split(domain, '.').get(0)
+  uni
+end #end of fun get-domain 
+
+#map the fun over all emails to get uni domains
+uni-domain = map(get-domain, all-emails)
+
+#get the specific uni-names 
+uniq-uni = distinct(uni-domain)
+'uniq-uni'#print the univeresities 
+uniq-uni
+
+######################################################################
+#2.3 
+#check if domain ends in nulondon.ac.uk and replace with northeastern.edu 
+fun replace-domain(s :: String) -> String: 
+  doc: 'splits email into username and domain, then checks domain, then replaces it if domain is nulondon.ac.uk'
+  #split email into username and domain
+  part = string-split(s, '@')
+  usern = part.get(0)
+  domain = part.get(1)
+  
+  #check if domain is nulondon.ac.uk
+  if domain == 'nulondon.ac.uk': usern + '@northeastern.edu'
+  else: s
+  end #end of if/else
+  
+end #end of replace-domain
+
+#all of the emails, including the emails with the domain replaced
+all-emails-transformed = map(replace-domain, all-emails)
+all-emails-transformed

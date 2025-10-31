@@ -49,5 +49,14 @@ fun count-nodes-children(c :: List<TaxonomyTree>) -> Number:
 end
 
 
-#CLASS EXERCISES
-fun count-species(t :: TaxonomyTree) -> 
+  
+
+
+
+
+
+
+
+
+
+#WEEK 7 CLASS @
