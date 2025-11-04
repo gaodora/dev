@@ -157,4 +157,17 @@ fun cap-flow(r :: River, cap :: Number) -> River:
     | merge(width, left, right) => 
       merge(width, cap-flow(left, max-flow), cap-flow(right, max-flow))
 end 
+end
 #end of cap-flow
+  
+#|  
+data list: 
+  | empty
+  | link(first, rest :: List)
+end 
+
+fun sum(lst :: List) -> Number: 
+  cases(List) lst: 
+    | empty => 0
+    | link(f, r) => f + sum(r)
+|#
