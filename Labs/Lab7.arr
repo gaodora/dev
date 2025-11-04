@@ -101,3 +101,15 @@ end
 #end of needed-scale
 
 
+fun scale-to-fit(n :: SensorNet) -> SensorNet:
+  doc: 'Makes the network feasible by scaling it just enough'
+  s = needed-scale(n)
+  if (s <= 1):
+    n
+  else:
+    apply-scale(n, s)
+  end
+where: 
+  fits-capacities(scale-to-fit(core)) is true
+  total-load(scale-to-fit(core)) is 187.5
+end
