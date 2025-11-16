@@ -23,8 +23,8 @@ penguins
 
 
 
-#Question 1: What is the ratio 
-#What is the ratio of a penguin's bill length to bill depth?
+#Question 1 - Scalar Processing
+# What is the ratio of a penguin's bill length to bill depth?
 fun bill-to-length(r :: Row) -> Number: 
   doc: "return the ratio of a penguin's bill length to its bill depth"
   leng = string-to-number(r["bill-length-mm"]).value
@@ -34,3 +34,8 @@ fun bill-to-length(r :: Row) -> Number:
 where: 
   bill-to-length(penguins.row-n(0)) is 2.09
 end
+
+
+
+#Question 2 - Transformation
+# Convert mm to cm 
