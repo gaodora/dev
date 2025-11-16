@@ -45,9 +45,36 @@ fun count-leaves-children(c :: List<TaxonomyTree>) -> Number:
 end
 
 
-fun count-species(t :: TaxonomyTree) -> Number: 
-  doc: 'count number of nodes with rank Species'
-  cases(List) c:
-    | 
+
+
+
+
+#class ex 1
+fun count-species(t :: TaxonomyTree) -> Number:
+  doc: "Count the number of nodes with rank 'Species' in the taxonomy tree"
+  cases (TaxonomyTree) t:
+    | node(rank, name, children) =>
+        if rank == "Species":
+          1 + count-species-list(children)
+        else:
+          count-species-list(children)
+        end
+  end
+where:
+  count-species(felidae) is 5
+  count-species(felis) is 2
+  count-species(panthera) is 3
+end
+
+fun count-species-list(lst :: List<TaxonomyTree>) -> Number:
+  doc: "Helper function to count species in a list of taxonomy trees"
+  cases (List) lst:
+    | empty => 0
+    | link(first, rest) =>
+        count-species(first) + count-species-list(rest)
   end
 end
+
+
+#class ex2
+
