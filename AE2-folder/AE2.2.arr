@@ -4,10 +4,11 @@ include data-source
 include tables
 
 
-penguins = load-table: num, species, island, bill-length-mm, bill-depth-mm, flipper-length-mm, body-mass-g, sex, year
+
+penguins = load-table: penguin-num, species, island, bill-length-mm, bill-depth-mm, flipper-length-mm, body-mass-g, sex, year
   
   source: csv-table-file("penguins.csv", default-options)
-  sanitize num using string-sanitizer 
+  sanitize penguin-num using string-sanitizer 
   sanitize species using string-sanitizer 
   sanitize island using string-sanitizer 
   sanitize bill-length-mm using num-sanitizer 
@@ -60,3 +61,12 @@ heavy-penguins
 
 
 #Question 4 - Accumulation 
+# What is the average flipper length in milimeters?
+#####################
+#extract flipper-length-mm as a list
+flipper-length-list = penguins.get-column("flipper-length-mm")
+flipper-length-list
+
+#flipper length
+j = flipper-length-list.length()
+j
