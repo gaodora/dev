@@ -67,6 +67,8 @@ heavy-penguins
 flipper-length-list = penguins.get-column("flipper-length-mm")
 flipper-length-list
 
-#flipper length
+#flipper length - the number of penguins
 j = flipper-length-list.length()
 j
+
+total = sum(flipper-length-list)
