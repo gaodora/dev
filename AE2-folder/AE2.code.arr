@@ -40,24 +40,30 @@ end
 
 
 #Question 2 - Transformation
-# Convert gram to kilogram
+# Convert the penguin's body mass in gram to kilogram
 ##########################
 #renames the column from g to kg because it is being converted into kilograms
-penguins-renam = penguins.rename-column("body-mass-g", "body-mass-kg")
+penguins-renam = penguins.rename-column("body-mass-g", " ")
 #converts every value in the table into kilograms using .transform-column()
 penguins-kg = penguins-renam.transform-column("body-mass-kg", lam(row): row * 0.001 end)
-'prints out the table to ensure it is correct'
+'prints out the table to ensure it is correct, penguins-kg'
 penguins-kg
 
 
 
 #Question 3 - Selection 
-# Which of the pengins weigh 4000 or more grams? 
+# Which of the penguins weigh 4000 or more grams? 
 #######################
-#filter() filters for penguins >= 4000 using lambda
+#filter() filters for penguins >= 4000 using lambda, creating a table
 heavy-penguins = penguins.filter(lam(row): row["body-mass-g"] >= 4000 end)
-'heavy-penguins, prints table to ensure it is correct'
-heavy-penguins
+
+
+#makes a list from inputted table
+heavy-pen-lis = heavy-penguins.all-rows()
+#prints the list
+'heavy-pen-lis'
+heavy-pen-lis
+
 
 
 #Question 4 - Accumulation 
@@ -68,7 +74,20 @@ flipper-length-list = penguins.get-column("flipper-length-mm")
 flipper-length-list
 
 #flipper length - the number of penguins
-j = flipper-length-list.length()
-j
+num-peng = flipper-length-list.length()
+num-peng
 
-total = sum(flipper-length-list)
+#total from the flipper length list that will hold the total flipper lengths of all penguins
+var list-total = 0
+
+#for each loop that adds all of the list's values into list-total
+for each(flipper from flipper-length-list):
+  list-total := list-total + flipper
+end 
+
+#calculate average by dividing the total flipper length by the number of penguins
+average = list-total / num-peng
+
+#prints out the average
+"the average in milimeters"
+average
